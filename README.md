@@ -7,8 +7,9 @@ This repository provides a complete solution for:
 2. **Exposing it securely** to the internet via Cloudflare tunnels
 3. **Managing the setup** with simple commands
 
-## 🎯 Quick Start (2 Commands!)
+## 🎯 Quick Start Options
 
+### Option 1: Basic ComfyUI (2 Commands!)
 ```bash
 # 1. Download and run ComfyUI installer
 curl -sSL https://raw.githubusercontent.com/tourniquetrules/ComfyUIEasy/main/easysetup.sh | bash
@@ -18,7 +19,29 @@ export CLOUDFLARE_DOMAIN=your-subdomain.yourdomain.com
 ./cloudflare-tunnel-setup.sh
 ```
 
-**That's it!** Your ComfyUI will be accessible at `https://your-subdomain.yourdomain.com`
+### Option 2: ComfyUI + SageAttention (Enhanced Performance!)
+```bash
+# 1. Install ComfyUI with SageAttention in one command
+curl -sSL https://raw.githubusercontent.com/tourniquetrules/ComfyUIEasy/main/easysetup.sh | bash -s -- --with-sage
+
+# 2. Set up secure internet access
+export CLOUDFLARE_DOMAIN=your-subdomain.yourdomain.com
+./cloudflare-tunnel-setup.sh
+```
+
+### Option 3: Enhanced Installer (Full Control)
+```bash
+# Download the enhanced installer
+curl -O https://raw.githubusercontent.com/tourniquetrules/ComfyUIEasy/main/easysetup-enhanced.sh
+chmod +x easysetup-enhanced.sh
+
+# Choose your installation:
+./easysetup-enhanced.sh                    # ComfyUI only
+./easysetup-enhanced.sh --with-sage        # ComfyUI + SageAttention (stable)
+./easysetup-enhanced.sh --sage-compile     # ComfyUI + SageAttention (latest)
+```
+
+**Result:** Your ComfyUI will be accessible at `https://your-subdomain.yourdomain.com`
 
 ## 📋 What This Does
 
@@ -42,10 +65,34 @@ export CLOUDFLARE_DOMAIN=your-subdomain.yourdomain.com
 ## 📁 Repository Contents
 
 ```
-├── easysetup.sh                  # ComfyUI installation script
+├── easysetup.sh                  # Basic ComfyUI installer (supports --with-sage)
+├── easysetup-enhanced.sh         # Enhanced installer with full SageAttention options
+├── install-sageattention.sh      # Standalone SageAttention installer
 ├── cloudflare-tunnel-setup.sh    # Tunnel setup script  
 ├── tunnel-manager.sh             # Daily management commands
 └── README.md                     # This documentation
+```
+
+## ⚡ SageAttention Support
+
+**SageAttention** provides significant performance improvements for attention mechanisms in ComfyUI, especially beneficial for:
+- Large model inference
+- High-resolution image generation  
+- Batch processing
+- Memory-constrained environments
+
+### SageAttention Installation Options:
+
+1. **During initial setup**: Use `--with-sage` flag with any installer
+2. **After ComfyUI is installed**: Run the standalone installer
+3. **Latest version**: Use `--sage-compile` for cutting-edge features
+
+```bash
+# Add SageAttention to existing ComfyUI installation
+curl -O https://raw.githubusercontent.com/tourniquetrules/ComfyUIEasy/main/install-sageattention.sh
+chmod +x install-sageattention.sh
+./install-sageattention.sh                 # Stable version
+./install-sageattention.sh --compile-source # Latest version
 ```
 
 ## 🔧 Detailed Setup
@@ -112,9 +159,13 @@ Secure, scalable access to ComfyUI with Cloudflare's global network.
 
 ### ComfyUI Commands (after installation)
 ```bash
-# Start ComfyUI (from ComfyUI-Easy-Install directory)
-cd ComfyUI-Easy-Install
-./run_comfyui.sh
+# Navigate to ComfyUI directory
+cd ComfyUI-Easy-Install/ComfyUI-Easy-Install
+
+# Start ComfyUI (choose based on your setup)
+./run_comfyui.sh                    # Basic ComfyUI
+./run_nvidia_gpu.sh                 # With NVIDIA GPU support
+./run_nvidia_gpu_SageAttention.sh   # With SageAttention (if installed)
 
 # Update ComfyUI
 ./update_comfy_and_run.sh
